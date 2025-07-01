@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Cinema - Update Profile</title>
+        <link rel="stylesheet" href="../styles/editprofile.css">
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">🎬 Smart Cinema</a>
+            
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="update-container">
+            <div class="update-header">
+                <h1>Update Profile</h1>
+                <p>Edit your profile information</p>
+            </div>
+
+            <form class="update-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input 
+                            type="text" 
+                            id="first_name" 
+                            name="first_name" 
+                            placeholder="Enter your first name"
+                            required
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input 
+                            type="text" 
+                            id="last_name" 
+                            name="last_name" 
+                            placeholder="Enter your last name"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="Enter your email address"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="text" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        placeholder="Enter your phone number"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="birth_date">Birth Date</label>
+                    <input 
+                        type="date" 
+                        id="birth_date" 
+                        name="birth_date" 
+                        placeholder="Enter your birth date"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="communication_preference">Communication Preference</label>
+                    <select id="communication_preference" name="communication_preference" required>
+                        <option value="">Select communication preference</option>
+                        <option value="email">Email</option>
+                        <option value="sms">SMS</option>
+                        <option value="phone">Phone Call</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="payment_method">Payment Method</label>
+                    <select id="payment_method" name="payment_method" required>
+                        <option value="">Select payment method</option>
+                        <option value="credit_card">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="wish_money">Wish Money</option>
+                    </select>
+                </div>
+
+                <div class="form-group genres-container">
+                    <label>Movie Genres (Select multiple)</label>
+                    <div class="genres-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="action" name="genres" value="action" checked>
+                            <label for="action">Action</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="adventure" name="genres" value="adventure">
+                            <label for="adventure">Adventure</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="comedy" name="genres" value="comedy" checked>
+                            <label for="comedy">Comedy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="drama" name="genres" value="drama">
+                            <label for="drama">Drama</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="horror" name="genres" value="horror">
+                            <label for="horror">Horror</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="romance" name="genres" value="romance">
+                            <label for="romance">Romance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="scifi" name="genres" value="scifi" checked>
+                            <label for="scifi">Sci-Fi</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="thriller" name="genres" value="thriller">
+                            <label for="thriller">Thriller</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fantasy" name="genres" value="fantasy">
+                            <label for="fantasy">Fantasy</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="mystery" name="genres" value="mystery">
+                            <label for="mystery">Mystery</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="animation" name="genres" value="animation">
+                            <label for="animation">Animation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="documentary" name="genres" value="documentary">
+                            <label for="documentary">Documentary</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="update-btn" id="updateBtn">
+                    Update Profile
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/editProfile.js"></script>
+
+</body>
+</html>
