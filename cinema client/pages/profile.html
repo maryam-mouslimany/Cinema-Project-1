@@ -1,0 +1,87 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Smart Cinema</title>
+        <link rel="stylesheet" href="../styles/profile.css">
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">🎬 Smart Cinema</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#">My Bookings</a></li>
+                <li><a id="logout" onclick= "myFunction()" href="../index.html">Logout</a></li>
+
+            </ul>
+            <div class="welcome-section">
+                <span class="welcome-text">Welcome,</span>
+                <span class="user-name">John Doe</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Content -->
+    <div class="profile-container">
+        <h1 class="profile-title">My Profile</h1>
+        
+        <div class="profile-info">
+            <span class="info-label">First Name</span>
+            <span class="info-value" id="first_name">John</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Last Name</span>
+            <span class="info-value" id="last_name">Doe</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Birth Date</span>
+            <span class="info-value" id="birth_date">January 15, 1990</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="email">john.doe@email.com</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Password</span>
+            <span class="info-value" id="password">••••••••</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Phone</span>
+            <span class="info-value" id="phone">+1 (555) 123-4567</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Communication Preference</span>
+            <span class="info-value" id="communication_preference">Email</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Favorite Movie Genres</span>
+            <span class="info-value" id="genres">Action, Sci-Fi, Drama</span>
+        </div>
+
+        <div class="profile-info">
+            <span class="info-label">Payment Method</span>
+            <span class="info-value" id="payment_method">•••• •••• •••• 1234</span>
+        </div>
+
+        <button id="update-btn" class="update-btn"><a href="editProfile.html">Update Profile</a></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../scripts/profile.js"></script>
+
+</body>
+</html>
