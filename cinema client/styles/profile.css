@@ -1,0 +1,167 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2d1b69 0%, #11001c 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: #2d1b69;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #ec4899;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .nav-menu a:hover {
+            color: #ec4899;
+        }
+
+        .nav-menu a.active {
+            color: #ec4899;
+        }
+
+        .welcome-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .welcome-text {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .user-name {
+            color: #ec4899;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .profile-btn {
+            color: #f59e0b;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 10px;
+            border: 1px solid #f59e0b;
+            border-radius: 4px;
+        }
+
+        .profile-btn:hover {
+            background-color: #f59e0b;
+            color: #11001c;
+        }
+
+        /* Profile Content */
+        .profile-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(45, 27, 105, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .profile-title {
+            color: #ec4899;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-info {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-info:last-of-type {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #cbd5e1;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            color: #f1f5f9;
+            font-size: 16px;
+            display: block;
+        }
+
+        .update-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #ec4899;
+            border: none;
+            border-radius: 4px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background-color: #be185d;
+        }
+
+        .update-btn a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+
+            .welcome-section {
+                order: -1;
+            }
+            
+            .profile-container {
+                margin: 20px;
+                padding: 25px 20px;
+            }
+        }
