@@ -1,7 +1,8 @@
 <?php
 require_once("Model.php");
 
-class User extends Model {
+class User extends Model
+{
 
     protected int $id;
     private string $first_name;
@@ -17,7 +18,8 @@ class User extends Model {
 
     protected static string $table = "users";
 
-    public function __construct(array $data) {
+    public function __construct(array $data)
+    {
         $this->id         = $data['id'];
         $this->first_name = $data['first_name'];
         $this->last_name  = $data['last_name'];
@@ -28,58 +30,70 @@ class User extends Model {
         $this->birth_date = $data['birth_date'];
         $this->payment_method = $data['payment_method'] ?? '';
         $this->communication_preference = $data['communication_preference'] ?? '';
-
     }
 
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->id;
     }
 
-    public function getFirstName(): string {
+    public function getFirstName(): string
+    {
         return $this->first_name;
     }
 
-    public function getLastName(): string {
+    public function getLastName(): string
+    {
         return $this->last_name;
     }
 
-    public function getEmail(): string {
+    public function getEmail(): string
+    {
         return $this->email;
     }
 
-    public function getPhone(): string {
+    public function getPhone(): string
+    {
         return $this->phone;
     }
 
-    public function getRoleId(): int {
+    public function getRoleId(): int
+    {
         return $this->role_id;
     }
 
-    public function getBirthDate(): string {
+    public function getBirthDate(): string
+    {
         return $this->birth_date;
     }
 
-    public function getPassword(): string {
+    public function getPassword(): string
+    {
         return $this->password;
     }
 
-    public function setFirstName(string $name): void {
+    public function setFirstName(string $name): void
+    {
         $this->first_name = $name;
     }
 
-    public function setLastName(string $name): void {
+    public function setLastName(string $name): void
+    {
         $this->last_name = $name;
     }
 
-    public function setPhone(string $phone): void {
+    public function setPhone(string $phone): void
+    {
         $this->phone = $phone;
     }
 
-    public function setRoleId(int $role_id): void {
+    public function setRoleId(int $role_id): void
+    {
         $this->role_id = $role_id;
     }
 
-    public function toArray(): array {
+    public function toArray(): array
+    {
         return [
             'id'          => $this->id,
             'first_name'  => $this->first_name,
@@ -93,24 +107,27 @@ class User extends Model {
         ];
     }
 
-    public static function findByEmail(mysqli $mysqli, string $email){
-        
-    $sql = "SELECT * FROM users WHERE email = ?";
+    public static function findByEmail(mysqli $mysqli, string $email)
+    {
 
-    $query = $mysqli->prepare($sql);
-    $query->bind_param("s", $email);
-    $query->execute();
+        $sql = "SELECT * FROM users WHERE email = ?";
 
-    $data = $query->get_result()->fetch_assoc();
+        $query = $mysqli->prepare($sql);
+        $query->bind_param("s", $email);
+        $query->execute();
 
-    return $data ? new static($data) : null;
+        $data = $query->get_result()->fetch_assoc();
+
+        return $data ? new static($data) : null;
     }
 
-    public function verifyPassword(string $input){
+    public function verifyPassword(string $input)
+    {
         return password_verify($input, $this->password);
     }
 
-    public function getGenres(mysqli $mysqli){
+    public function getGenres(mysqli $mysqli)
+    {
         $sql = $mysqli->prepare("
             SELECT genres.*
             FROM genres
@@ -122,5 +139,4 @@ class User extends Model {
         $genres = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $genres;
     }
-
 }

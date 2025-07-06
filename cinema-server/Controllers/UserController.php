@@ -1,50 +1,50 @@
 <?php
-global $mysqli;
-require __DIR__ . '/../connection/connection.php';
 require __DIR__ . '/../models/User.php';
+require __DIR__ . '/BaseController.php';
 
-class userController
+class userController extends BaseController
 {
     public function viewProfile()
     {
-        global $mysqli;
+        $helper = new AuthService();
+
         if (isset($_GET["id"])) {
             $id = ($_GET["id"]);
-            $user = User::find($mysqli, $id);
+            $user = User::find($this->mysqli, $id);
 
             if ($user) {
-                $genres = $user->getGenres($mysqli, $id);
-                $response["success"] = true;
-
-                $response["user"] = $user->toArray();
-                $response["genres"] = $genres;
+                $genres = $user->getGenres($this->mysqli, $id);
+                $helper->respondSuccess("profile lead successfully", $user, $genres);
             } else {
-                $response["success"] = false;
-
-                $response["error"] = "User not found";
+                $helper->respondError("User not found");
+                $helper->echoResponse();
             }
         } else {
-            $response["success"] = false;
-            $response["error"] = "Missing user ID";
+            $helper->respondError("Missing user id");
+            $helper->echoResponse();
         }
 
-        echo json_encode($response);
+        $helper->echoResponse();
     }
     public function deleteUser()
     {
-        global $mysqli;
         $id = $_GET['id'];
+        $helper = new AuthService();
+
         if ($id) {
-            User::delete($mysqli, $id);
+            User::delete($this->mysqli, $id);
+            $helper->respondSuccess("Deleted sucessfully");
+            $helper->echoResponse();
         } else {
-            echo 'user not found';
+            $helper->respondError("user not found");
+            $helper->echoResponse();
         }
     }
 
     public function updateUser()
     {
-        global $mysqli;
-        $data = $_POST;
+        $data = json_decode(file_get_contents('php://input'), true);
+        $helper = new AuthService();
 
         if (
             isset($data["id"]) && isset($data["email"]) && isset($data["phone"]) &&  isset($data["first_name"]) &&
@@ -69,28 +69,27 @@ class userController
             ];
 
             if (isset($data["password"]) && $data["password"] !== "") {
-                $password = $data["password"];
-
-                if (strlen($password) < 6) {
-                    echo json_encode(["success" => false, "message" => "Password must be at least 6 characters"]);
-                    exit;
+                if (!AuthService::validatePassword($data["password"])) {
+                    $helper->respondError("Password should be at least six characters");
+                    $helper->echoResponse();
                 }
 
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $hashed_password = password_hash($data["password"], PASSWORD_DEFAULT);
                 $userData["password"] = $hashed_password;
             }
-            $user = User::find($mysqli, $id);
+            $user = User::find($this->mysqli, $id);
 
             if (!$user) {
-                echo json_encode(["success" => false, "message" => "User not found"]);
-                exit;
+                $helper->respondError("user not found");
+                $helper->echoResponse();
             }
 
-            $user->update($mysqli, $userData);
+            $user->update($this->mysqli, $userData);
 
-            echo json_encode(["success" => true, "message" => "User updated successfully"]);
+            $helper->respondSuccess("User updated successfully");
         } else {
-            echo json_encode(["success" => false, "message" => "Missing required fields"]);
+            $helper->respondSuccess("Missing Required Fields");
         }
+        $helper->echoResponse();
     }
 }

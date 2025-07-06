@@ -17,8 +17,7 @@ class Api{
         $controller_name = $this->apis[$request]['controller']; //if $request == /articles, then the $controller_name will be "ArticleController" 
         $method = $this->apis[$request]['method'];
         require_once "controllers/{$controller_name}.php";
-
-        $controller = new $controller_name();
+        $controller = new $controller_name($mysqli);
         if (method_exists($controller, $method)) {
             $controller->$method();
         } else 

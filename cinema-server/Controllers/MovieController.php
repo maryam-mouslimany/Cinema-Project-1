@@ -1,18 +1,16 @@
 <?php
-global $mysqli;
 require __DIR__ . '/../models/Movie.php';
-require __DIR__ . '/../connection/connection.php';
+require __DIR__ . '/BaseController.php';
 
-class MovieController
+class MovieController extends BaseController
 {
-    public function getMovies()
+    public function getMovies() 
     {
-        global $mysqli;
         $response = [];
         $response["status"] = 200;
 
         if (!isset($_GET["id"])) {
-            $movies = Movie::all($mysqli);
+            $movies = Movie::all($this->mysqli);
 
             $response["movies"] = [];
             foreach ($movies as $a) {
@@ -23,7 +21,7 @@ class MovieController
         }
 
         $id = $_GET["id"];
-        $movie = Movie::find($mysqli, $id);
+        $movie = Movie::find($this->mysqli, $id);
         $response["movie"] = $movie->toArray();
 
         echo json_encode($response);
