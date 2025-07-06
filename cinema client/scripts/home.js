@@ -7,7 +7,7 @@ function toggleMenu() {
 const userId = localStorage.getItem("user_id");
 
 if (userId) {
-  axios.get(`http://localhost/Cinema---Project/cinema%20server/Controllers/UserController.php?`, {
+  axios.get(`http://localhost/Cinema-Project-1/cinema-server/Controllers/UserController.php?`, {
     params: { id: userId }
   })
   .then(function(response) {

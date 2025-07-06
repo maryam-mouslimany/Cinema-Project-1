@@ -94,6 +94,7 @@ class User extends Model {
     }
 
     public static function findByEmail(mysqli $mysqli, string $email){
+        
     $sql = "SELECT * FROM users WHERE email = ?";
 
     $query = $mysqli->prepare($sql);
