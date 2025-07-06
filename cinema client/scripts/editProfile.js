@@ -30,7 +30,7 @@ document.querySelector(".update-form").addEventListener("submit", function (e) {
 
   const id = localStorage.getItem("user_id");
 
-  axios.post("http://localhost/Cinema---Project/cinema-server/Controllers/UpdateController.php", {
+  axios.post("http://localhost/Cinema-Project-1/cinema-server/update", {
     id: id,
     email: document.querySelector('input[name="email"]').value,
     password: document.querySelector('input[name="password"]').value,

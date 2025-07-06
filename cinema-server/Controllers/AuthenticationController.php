@@ -1,38 +1,33 @@
 <?php
-global $mysqli;
-
-require __DIR__ . '/../connection/connection.php';
+require __DIR__ . '/BaseController.php';
 require __DIR__ . '/../models/User.php';
 
-class AuthenticationController
+class AuthenticationController extends BaseController
 {
 
   public function login()
   {
-    global $mysqli;
+    $helper = new AuthService();
+   $data = json_decode(file_get_contents('php://input'), true);
 
-    $response = [];
-    $response['message'] = 'Please provide both email and password';
-    if (isset($_GET["email"]) && isset($_GET["password"])) {
-      $email = $_GET["email"];
-      $password = $_GET["password"];
-      $user = User::findByEmail($mysqli, $email);
-      if ($user) { 
-        if ($user->verifyPassword($password)) {
-          $response['message'] = 'Login successful';
-          $response['user'] = $user->toArray();
+    if (isset($data["email"]) && isset($data["password"])) {
+      $user = User::findByEmail($this->mysqli, $data["email"]);
+      if ($user) {
+        if ($user->verifyPassword($data["password"])) {
+          $helper->respondSuccess("message", $user);
         } else
-          $response['message'] = 'Wrong password';
+          $helper->respondError("Wrong Password");
       } else
-        $response['message'] = 'User not found';
+        $helper->respondError("User not found");
     }
-    echo json_encode($response);
+    $helper->echoResponse();
   }
 
   public function register()
   {
-    global $mysqli;
-    $data = $_POST;
+    $helper = new AuthService();
+   $data = json_decode(file_get_contents('php://input'), true);
+
     if (
       isset($data["email"]) &&
       isset($data["password"]) &&
@@ -41,53 +36,39 @@ class AuthenticationController
       isset($data["last_name"]) &&
       isset($data["birth_date"])
     ) {
-      $email = $data["email"];
-      $password = $data["password"];
-      $first_name = $data["first_name"];
-      $last_name = $data["last_name"];
-      $phone = $data["phone"];
-      $birth_date = $data["birth_date"];
 
-      $sql = $mysqli->prepare("SELECT id FROM users WHERE email = ?");
-      $sql->bind_param("s", $email);
-      $sql->execute();
-      $sql->store_result();
-      if ($sql->num_rows > 0) {
-        echo json_encode(["success" => false, "message" => "Email already exists"]);
-        exit;
+      if (User::findByEmail($this->mysqli, $data["email"])) {
+        $helper->respondError("Email already exists");
+        $helper->echoResponse();
       }
 
-      if (strlen($password) < 6) {
-        echo json_encode(["success" => false, "message" => "Password must be at least 6 characters"]);
-        exit;
+      if (!AuthService::validatePassword($data["password"])) {
+        $helper->respondError("Password should be at least six characters");
+        $helper->echoResponse();
       }
 
-      $dob = new DateTime($birth_date);
-      $today = new DateTime();
-      $age = $today->diff($dob)->y;
-
-      if ($age < 18) {
-        echo json_encode(["success" => false, "message" => "You must be at least 18 years old to register"]);
-        exit;
+      if (!AuthService::validateAge($data["birth_date"])) {
+        $helper->respondError("You must be at least 18 years old to register");
+        $helper->echoResponse();
       }
 
-      $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+      $hashed_password = password_hash($data["password"], PASSWORD_DEFAULT);
 
       $userData = [
-        "email" => $email,
+        "email" => $data["email"],
         "password" => $hashed_password,
-        "first_name" => $first_name,
-        "last_name" => $last_name,
-        "phone" => $phone,
-        "birth_date" => $birth_date,
+        "first_name" => $data["first_name"],
+        "last_name" => $data["last_name"],
+        "phone" => $data["phone"],
+        "birth_date" => $data["birth_date"],
         "role_id" => 1
       ];
 
-      User::create($mysqli, $userData);
-
-      echo json_encode(["success" => true, "message" => "User created successfully"]);
+      User::create($this->mysqli, $userData);
+      $helper->respondSuccess("Registration successful");
     } else {
-      echo json_encode(["success" => false, "message" => "Missing required fields"]);
+      $helper->respondError("Missing required fields");
     }
+    $helper->echoResponse();
   }
 }
